@@ -61,6 +61,7 @@ public class FileStorage implements Storage {
                 userBase.getUsers().remove(i);
                 userBase.addUser(user);
                 saveToFile();
+                return;
             }
         }
     }
