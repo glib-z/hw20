@@ -67,6 +67,35 @@ public class UserDao {
         return users;
     }
 
+    public void removeUserByName(String name) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            int count = statement.executeUpdate("DELETE FROM users WHERE name='" + name + "';");
+            System.out.println("Deleted " + count + " rows from table users");
+        }
+    }
+
+    public void removeUser(int id) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            int count = statement.executeUpdate(new StringBuilder().append("DELETE FROM users WHERE _id='").append(id).append("';").toString());
+            System.out.println("Deleted " + count + " rows from table users");
+        }
+    }
+
+    public User getUser(int id) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+//            String request = String.format(new StringBuilder().append("SELECT * FROM users WHERE _id='").append(id).append("';").toString());
+            String request = String.format("SELECT * FROM users WHERE _id = '%d';", id);
+            ResultSet resultSet = statement.executeQuery(request);
+            while (resultSet.next()) {
+                int idd = resultSet.getInt("_id");
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt("age");
+                return new User(idd, name, age);
+            }
+        }
+        return null;
+    }
+
 
 /*
     public UserBase getGroupByName(String name) throws SQLException {

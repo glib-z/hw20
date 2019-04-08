@@ -13,9 +13,9 @@ class User {
 
 (++)- void removeAll()
 
-(+)- void removeUser(int id)
+(++)- void removeUser(int id)
 
-(+)- void removeUserByName(String name)
+(++)- void removeUserByName(String name)
 
 (++)- void addUser(User user)
 

@@ -31,11 +31,19 @@ public class SQLStorage implements Storage {
     }
 
     public void removeUser(int id) {
-
+        try {
+            userDao.removeUser(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeUserByName(String name) {
-
+        try {
+            userDao.removeUserByName(name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addUser(User user) {
@@ -51,6 +59,11 @@ public class SQLStorage implements Storage {
     }
 
     public User getUser(int id) {
+        try {
+            userDao.getUser(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

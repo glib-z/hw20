@@ -47,6 +47,21 @@ public class Main {
         users.addAll(sqlStorage.getAllUsers());
         System.out.println("\nNew users have been added. List of users:\n" + users);
 
+        sqlStorage.removeUserByName("Fifth");
+        users.clear();
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println("\nUser 'Fifth' have been removed. List of users:\n" + users);
+
+        System.out.println("\nRemoving user with ID=" + users.get(2).getId() + "...");
+        sqlStorage.removeUser(users.get(2).getId());
+        users.clear();
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println("\nList of users:\n" + users);
+
+        user = sqlStorage.getUser(users.get(2).getId());
+        System.out.println("\nGet user by ID=" + users.get(2).getId() + ":\n" + user);
+
+
 
     }
 
