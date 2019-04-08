@@ -1,4 +1,4 @@
-package gz;
+package gz.model;
 
 public class User {
     private int id;

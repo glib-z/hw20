@@ -1,7 +1,9 @@
-package gz;
+package gz.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import gz.model.User;
+import gz.model.UserBase;
 import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;

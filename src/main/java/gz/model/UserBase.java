@@ -1,4 +1,4 @@
-package gz;
+package gz.model;
 
 import java.util.ArrayList;
 import java.util.List;

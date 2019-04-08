@@ -1,5 +1,6 @@
-package gz;
+package gz.storage;
 
+import gz.model.User;
 import java.util.List;
 
 public interface Storage {

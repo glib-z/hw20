@@ -1,5 +1,8 @@
 package gz;
 
+import gz.model.User;
+import gz.storage.FileStorage;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
