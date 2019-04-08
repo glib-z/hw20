@@ -2,6 +2,7 @@ package gz;
 
 import gz.model.User;
 import gz.storage.FileStorage;
+import gz.storage.SQLStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,44 @@ public class Main {
     static User user = new User();
 
     public static void main(String[] args) {
+
+//        testFileStorage();
+
+        testSQLStorage();
+
+  }
+
+
+    private static void testSQLStorage() {
+
+        SQLStorage sqlStorage = new SQLStorage("users");
+
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "First", 1));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Second", 2));
+        System.out.println("\nNew users have been added. List of users:");
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println(users);
+
+        sqlStorage.removeAll();
+        users.clear();
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println("\nAll users have been removed. List of users:\n" + users);
+
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Third", 3));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Fourth", 4));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Fifth", 5));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Sixth", 6));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Seventh", 7));
+        sqlStorage.addUser(new User(UUID.randomUUID().hashCode(), "Eighth", 8));
+        users.clear();
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println("\nNew users have been added. List of users:\n" + users);
+
+
+    }
+
+
+    private static void testFileStorage() {
 
         FileStorage fileStorage = new FileStorage("users");
 
@@ -57,4 +96,5 @@ public class Main {
         System.out.println("\nUser with ID=" + users.get(2).getId() + " have been changed. List of users:\n" + users);
 
     }
+
 }

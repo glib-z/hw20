@@ -11,19 +11,19 @@ class User {
 Написать интерфейс Storage, и класс FileStorage который в конструкторе принимает имя файла где будут храниться данные:
 
 
-(+)- void removeAll()
+(++)- void removeAll()
 
 (+)- void removeUser(int id)
 
 (+)- void removeUserByName(String name)
 
-(+)- void addUser(User user)
+(++)- void addUser(User user)
 
 (+)- void updateUser(User user)
 
 (+)- User getUser(int id)
 
-(+)- List<User> getAllUsers()
+(++)- List<User> getAllUsers()
 
 
 Продемонстрирвоать работу всех методов.
