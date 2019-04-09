@@ -13,16 +13,17 @@ public class Main {
     static List<User> users = new ArrayList<User>();
     static User user = new User();
 
+
     public static void main(String[] args) {
-
-//        testFileStorage();
-
+        testFileStorage();
         testSQLStorage();
-
-  }
+    }
 
 
     private static void testSQLStorage() {
+
+        System.out.println("================================================================================");
+        System.out.println("SQLStorage testing...");
 
         SQLStorage sqlStorage = new SQLStorage("users");
 
@@ -61,12 +62,18 @@ public class Main {
         user = sqlStorage.getUser(users.get(2).getId());
         System.out.println("\nGet user by ID=" + users.get(2).getId() + ":\n" + user);
 
-
+        sqlStorage.updateUser(new User(user.getId(), user.getName() + " Boss", user.getAge() + 30));
+        users.clear();
+        users.addAll(sqlStorage.getAllUsers());
+        System.out.println("\nUser with ID=" + users.get(2).getId() + " have been changed. List of users:\n" + users);
 
     }
 
 
     private static void testFileStorage() {
+
+        System.out.println("================================================================================");
+        System.out.println("FileStorage testing...");
 
         FileStorage fileStorage = new FileStorage("users");
 

@@ -9,14 +9,14 @@ import java.util.List;
 
 public class SQLStorage implements Storage {
 
-    private UserBase userBase;
-    private String dataBaseName;
+//    private UserBase userBase;
+//    private String dataBaseName;
     private UserDao userDao;
 
     public SQLStorage(String dataBaseName) {
-        this.dataBaseName = dataBaseName;
+//        this.dataBaseName = dataBaseName;
         try {
-            userDao= new UserDao();
+            userDao= new UserDao(dataBaseName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,12 +55,17 @@ public class SQLStorage implements Storage {
     }
 
     public void updateUser(User user) {
-
+        try {
+            userDao.removeUser(user.getId());
+            userDao.insertUser(user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public User getUser(int id) {
         try {
-            userDao.getUser(id);
+            return userDao.getUser(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

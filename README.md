@@ -19,9 +19,9 @@ class User {
 
 (++)- void addUser(User user)
 
-(+)- void updateUser(User user)
+(++)- void updateUser(User user)
 
-(+)- User getUser(int id)
+(++)- User getUser(int id)
 
 (++)- List<User> getAllUsers()
 

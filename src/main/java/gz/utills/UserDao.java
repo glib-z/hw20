@@ -13,6 +13,8 @@ import java.util.List;
 
 public class UserDao {
 
+    private final String SQL_SERVER = "jdbc:postgresql://127.0.0.1:5432/";
+
     private Connection connection;
 
     static {
@@ -23,8 +25,8 @@ public class UserDao {
         }
     }
 
-    public UserDao() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/users", "postgres", "123456");
+    public UserDao(String dataBaseName) throws SQLException {
+        connection = DriverManager.getConnection(SQL_SERVER + dataBaseName, "postgres", "123456");
         maybeCreateUsersTable();
     }
 
@@ -83,8 +85,7 @@ public class UserDao {
 
     public User getUser(int id) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-//            String request = String.format(new StringBuilder().append("SELECT * FROM users WHERE _id='").append(id).append("';").toString());
-            String request = String.format("SELECT * FROM users WHERE _id = '%d';", id);
+            String request = String.format("SELECT * FROM users WHERE _id = %d;", id);
             ResultSet resultSet = statement.executeQuery(request);
             while (resultSet.next()) {
                 int idd = resultSet.getInt("_id");
