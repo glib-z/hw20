@@ -1,8 +1,6 @@
 package gz.utills;
 
 import gz.model.User;
-import gz.model.UserBase;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,7 +12,6 @@ import java.util.List;
 public class UserDao {
 
     private final String SQL_SERVER = "jdbc:postgresql://127.0.0.1:5432/";
-
     private Connection connection;
 
     static {
@@ -25,10 +22,12 @@ public class UserDao {
         }
     }
 
+
     public UserDao(String dataBaseName) throws SQLException {
         connection = DriverManager.getConnection(SQL_SERVER + dataBaseName, "postgres", "123456");
         maybeCreateUsersTable();
     }
+
 
     private void maybeCreateUsersTable() throws SQLException {
         try (Statement statement = connection.createStatement()) {
@@ -40,6 +39,7 @@ public class UserDao {
         }
     }
 
+
     public void clean() throws SQLException {
         try (Statement statement = connection.createStatement()) {
             int count = statement.executeUpdate("DELETE FROM users;");
@@ -47,12 +47,14 @@ public class UserDao {
         }
     }
 
+
     public void insertUser(User user) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String request = String.format("INSERT INTO users VALUES ('%d', '%s', '%d');", user.getId(), user.getName(), user.getAge());
             statement.execute(request);
         }
     }
+
 
     public List<User> getUsers() throws SQLException {
         List<User> users = new ArrayList<>();
@@ -69,6 +71,7 @@ public class UserDao {
         return users;
     }
 
+
     public void removeUserByName(String name) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             int count = statement.executeUpdate("DELETE FROM users WHERE name='" + name + "';");
@@ -76,12 +79,14 @@ public class UserDao {
         }
     }
 
+
     public void removeUser(int id) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             int count = statement.executeUpdate(new StringBuilder().append("DELETE FROM users WHERE _id='").append(id).append("';").toString());
             System.out.println("Deleted " + count + " rows from table users");
         }
     }
+
 
     public User getUser(int id) throws SQLException {
         try (Statement statement = connection.createStatement()) {
@@ -96,58 +101,5 @@ public class UserDao {
         }
         return null;
     }
-
-
-/*
-    public UserBase getGroupByName(String name) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String request = String.format("SELECT * FROM groups WHERE name = '%s';", name);
-            ResultSet resultSet = statement.executeQuery(request);
-            if (resultSet.next()) {
-                String id = resultSet.getString("_id");
-                List<User> users = getUsersByGroupId(id);
-                return new Group(id, name, users);
-            }
-        }
-        return null;
-    }
-
-    private List<User> getUsersByGroupId(String groupId) throws SQLException {
-        List<User> users = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            String request = String.format("SELECT * FROM users WHERE group_id = '%s';", groupId);
-            ResultSet resultSet = statement.executeQuery(request);
-            while (resultSet.next()) {
-                String id = resultSet.getString("_id");
-                String name = resultSet.getString("name");
-                int age = resultSet.getInt("age");
-                users.add(new User(id, name, age, groupId));
-            }
-        }
-        return users;
-    }
-
-    /*
-        SELECT column-list
-        FROM table_name
-        [WHERE condition]
-        [ORDER BY column1, column2, .. columnN] [ASC | DESC];
-     */
-/*    public List<User> getUsersByAge(int from, int to) throws SQLException {
-        List<User> users = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            String request = String.format("SELECT * FROM users WHERE age >= '%s' AND age <= '%s' ORDER BY age, name ASC;", from, to);
-            ResultSet resultSet = statement.executeQuery(request);
-            while (resultSet.next()) {
-                String id = resultSet.getString("_id");
-                String groupId = resultSet.getString("group_id");
-                String name = resultSet.getString("name");
-                int age = resultSet.getInt("age");
-                users.add(new User(id, name, age, groupId));
-            }
-        }
-        return users;
-    }
-*/
 
 }

@@ -1,26 +1,23 @@
 package gz.storage;
 
 import gz.model.User;
-import gz.model.UserBase;
 import gz.utills.UserDao;
-
 import java.sql.SQLException;
 import java.util.List;
 
 public class SQLStorage implements Storage {
 
-//    private UserBase userBase;
-//    private String dataBaseName;
     private UserDao userDao;
 
+
     public SQLStorage(String dataBaseName) {
-//        this.dataBaseName = dataBaseName;
         try {
             userDao= new UserDao(dataBaseName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public void removeAll() {
         try {
@@ -30,6 +27,7 @@ public class SQLStorage implements Storage {
         }
     }
 
+
     public void removeUser(int id) {
         try {
             userDao.removeUser(id);
@@ -37,6 +35,7 @@ public class SQLStorage implements Storage {
             e.printStackTrace();
         }
     }
+
 
     public void removeUserByName(String name) {
         try {
@@ -46,6 +45,7 @@ public class SQLStorage implements Storage {
         }
     }
 
+
     public void addUser(User user) {
         try {
             userDao.insertUser(user);
@@ -53,6 +53,7 @@ public class SQLStorage implements Storage {
             e.printStackTrace();
         }
     }
+
 
     public void updateUser(User user) {
         try {
@@ -63,6 +64,7 @@ public class SQLStorage implements Storage {
         }
     }
 
+
     public User getUser(int id) {
         try {
             return userDao.getUser(id);
@@ -71,6 +73,7 @@ public class SQLStorage implements Storage {
         }
         return null;
     }
+
 
     public List<User> getAllUsers() {
         try {
