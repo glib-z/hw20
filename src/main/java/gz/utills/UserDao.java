@@ -25,13 +25,13 @@ public class UserDao {
 
     public UserDao(String dataBaseName) throws SQLException {
         connection = DriverManager.getConnection(SQL_SERVER + dataBaseName, "postgres", "123456");
-        maybeCreateUsersTable();
+        maybeCreateUsersTable(dataBaseName);
     }
 
 
-    private void maybeCreateUsersTable() throws SQLException {
+    private void maybeCreateUsersTable(String dataBaseName) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS users (\n" +
+            statement.execute("CREATE TABLE IF NOT EXISTS " + dataBaseName + " (\n" +
                     "_id int PRIMARY KEY,\n" +
                     "name varchar(100),\n" +
                     "age int\n" +
