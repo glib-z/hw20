@@ -33,3 +33,19 @@ class User {
 *(+)Данные должны храниться в PostgreSQL.
 
 (+)При добавлении метод addUser должен назначить User уникальный id - порядковый номер.
+
+===========================================================
+
+The older methods of loading the driver for postgresql are still supported but they are no longer necessary.
+The next code has been removed:
+
+    static {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+

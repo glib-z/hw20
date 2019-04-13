@@ -10,9 +10,9 @@ public class SQLStorage implements Storage {
     private UserDao userDao;
 
 
-    public SQLStorage(String dataBaseName) {
+    public SQLStorage(String dataBaseTableName) {
         try {
-            userDao= new UserDao(dataBaseName);
+            userDao= new UserDao(dataBaseTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

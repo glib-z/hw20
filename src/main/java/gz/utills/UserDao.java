@@ -11,27 +11,18 @@ import java.util.List;
 
 public class UserDao {
 
-    private final String SQL_SERVER = "jdbc:postgresql://127.0.0.1:5432/";
     private Connection connection;
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public UserDao(String tableName) throws SQLException {
+        String url = "jdbc:postgresql://127.0.0.1:5432/test?user=postgres&password=123456&ssl=false";
+        connection = DriverManager.getConnection(url);
+        maybeCreateUsersTable(tableName);
     }
 
 
-    public UserDao(String dataBaseName) throws SQLException {
-        connection = DriverManager.getConnection(SQL_SERVER + dataBaseName, "postgres", "123456");
-        maybeCreateUsersTable(dataBaseName);
-    }
-
-
-    private void maybeCreateUsersTable(String dataBaseName) throws SQLException {
+    private void maybeCreateUsersTable(String tableName) throws SQLException {
         try (Statement statement = connection.createStatement()) {
-            statement.execute("CREATE TABLE IF NOT EXISTS " + dataBaseName + " (\n" +
+            statement.execute("CREATE TABLE IF NOT EXISTS " + tableName + " (\n" +
                     "_id int PRIMARY KEY,\n" +
                     "name varchar(100),\n" +
                     "age int\n" +
