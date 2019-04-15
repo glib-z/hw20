@@ -1,8 +1,21 @@
 package gz.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @Column(name = "_id")
     private int id;
+
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
+
     private int age;
 
     public User(int id, String name, int age) {

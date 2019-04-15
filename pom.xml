@@ -34,6 +34,19 @@
             <version>2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-agroal</artifactId>
+            <version>5.4.2.Final</version>
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
 
 </project>
