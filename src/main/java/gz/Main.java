@@ -2,6 +2,7 @@ package gz;
 
 import gz.model.User;
 import gz.storage.FileStorage;
+import gz.storage.H2Storage;
 import gz.storage.SQLHiberStorage;
 import gz.storage.SQLStorage;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Main {
         testFileStorage();
         testSQLStorage();
         testSQLHiberStorage();
+        testH2Storage();
     }
 
 
@@ -66,7 +68,7 @@ public class Main {
         fileStorage.updateUser(new User(user.getId(), user.getName() + " Boss", user.getAge() + 30));
         users.clear();
         users.addAll(fileStorage.getAllUsers());
-        System.out.println("\nUser with ID=" + users.get(2).getId() + " have been changed. List of users:\n" + users);
+        System.out.println("\nUser with ID=" + users.get(2).getId() + " has been changed. List of users:\n" + users);
 
     }
 
@@ -116,7 +118,7 @@ public class Main {
         sqlStorage.updateUser(new User(user.getId(), user.getName() + " Boss", user.getAge() + 30));
         users.clear();
         users.addAll(sqlStorage.getAllUsers());
-        System.out.println("\nUser with ID=" + users.get(2).getId() + " have been changed. List of users:\n" + users);
+        System.out.println("\nUser with ID=" + users.get(2).getId() + " has been changed. List of users:\n" + users);
 
     }
 
@@ -166,9 +168,62 @@ public class Main {
         sqlHiberStorage.updateUser(new User(user.getId(), user.getName() + " Boss", user.getAge() + 30));
         users.clear();
         users.addAll(sqlHiberStorage.getAllUsers());
-        System.out.println("\nUser with ID=" + users.get(2).getId() + " have been changed. List of users:\n" + users);
+        System.out.println("\nUser with ID=" + users.get(2).getId() + " has been changed. List of users:\n" + users);
 
         sqlHiberStorage.close();
+    }
+
+
+
+    private static void testH2Storage() {
+
+        System.out.println("\n================================================================================");
+        System.out.println("H2Storage testing...");
+
+        H2Storage h2Storage = new H2Storage();
+
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "First", 1));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Second", 2));
+        System.out.println("\nNew users have been added. List of users:");
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println(users);
+
+        h2Storage.removeAll();
+        users.clear();
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println("\nAll users have been removed. List of users:\n" + users);
+
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Third", 3));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Fourth", 4));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Fifth", 5));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Sixth", 6));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Seventh", 7));
+        h2Storage.addUser(new User(UUID.randomUUID().hashCode(), "Eighth", 8));
+        users.clear();
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println("\nNew users have been added. List of users:\n" + users);
+
+        h2Storage.removeUserByName("Fifth");
+        users.clear();
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println("\nUser 'Fifth' have been removed. List of users:\n" + users);
+
+        System.out.println("\nRemoving user with ID=" + users.get(2).getId() + "...");
+        h2Storage.removeUser(users.get(2).getId());
+        users.clear();
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println("\nList of users:\n" + users);
+
+        user = h2Storage.getUser(users.get(2).getId());
+        System.out.println("\nGet user by ID=" + users.get(2).getId() + ":\n" + user);
+
+        h2Storage.updateUser(new User(user.getId(), user.getName() + " Boss", user.getAge() + 30));
+        users.clear();
+        users.addAll(h2Storage.getAllUsers());
+        System.out.println("\nUser with ID=" + users.get(2).getId() + " has been changed. List of users:\n" + users);
+
+        h2Storage.close();
+
     }
 
 

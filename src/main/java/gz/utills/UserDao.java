@@ -93,4 +93,11 @@ public class    UserDao {
         return null;
     }
 
+    public void updateUser(User user) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(String.format("UPDATE users SET name = '%s', age = %d WHERE _id = %d;",
+                    user.getName(), user.getAge(), user.getId()));
+        }
+    }
+
 }

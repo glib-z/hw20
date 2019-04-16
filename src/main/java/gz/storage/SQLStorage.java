@@ -57,8 +57,9 @@ public class SQLStorage implements Storage {
 
     public void updateUser(User user) {
         try {
-            userDao.removeUser(user.getId());
-            userDao.insertUser(user);
+            //userDao.removeUser(user.getId());
+            //userDao.insertUser(user);
+            userDao.updateUser(user);
         } catch (SQLException e) {
             e.printStackTrace();
         }

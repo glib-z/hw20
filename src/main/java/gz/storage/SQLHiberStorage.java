@@ -12,7 +12,6 @@ public class SQLHiberStorage implements Storage {
         userHiberDao = new UserHiberDao();
     }
 
-
     public void close() {
         userHiberDao.close();
     }
